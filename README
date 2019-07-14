@@ -12,8 +12,8 @@ Current sources:
 		- New York Times World News
 		- BBC World News
 		- Reuters World News
-		- The Economist International
-	- NIST randomness beacon (v1 and v2)
+		- The Economist Latest Updates
+	- NIST randomness beacon v2
 	- Bitcoin block hash, depth 10
 	- Monero block hash, depth 10
 
@@ -21,60 +21,56 @@ Inspired by the proof of freshness used in Qubes OS's canaries.
 
 Example output:
 
-	Date: 2019-07-14 04:01 UTC
+	Date: 2019-07-14 16:54 UTC
 
 	Src: SPIEGEL ONLINE - International (https://www.spiegel.de/international/index.rss)
-	---
-	Far-Right AfD: Germany's Populist Party Embraces Its Extremist Wing
+	 ---
+	Far-Right AfD: Germany's Populist Party Embraces Its Extremist Wing
 	A Question of Trust: Ursula Von Der Leyen Recruits Team to Win Over Brussels
 	Feeding People With Science: Plant Researchers Brace for Population Explosion
-	A Heroine and a Figure of Hate: Carola Rackete and Europe's Troubling Refugee Policies
-	Sea-Watch Captain Carola Rackete: 'We Were All in a State of Total Despair'
+	A Heroine and a Figure of Hate: Carola Rackete and Europe's Troubling Refugee Policies
+	Sea-Watch Captain Carola Rackete: 'We Were All in a State of Total Despair'
 
 	Src: NYT > World News (https://rss.nytimes.com/services/xml/rss/nyt/World.xml)
-	---
-	After a Police Shooting, Ethiopian Israelis Seek a ‘Black Lives Matter’ Reckoning
-	The Taliban Promise to Protect Women. Here’s Why Women Don’t Believe Them.
-	Hong Kong Protest Against Mainland Chinese Traders Turns Violent
-	At Least 26 Dead in Somalia Hotel Attack Claimed by Shabab
-	A ‘Dark Lord’ Falls in Russia’s Growing Power Struggle
+	 ---
+	Greens Are the New Hope for Europe s Center. For the Far Right, They re Enemy No. 1.
+	Hong Kong Protesters  New Target: A News Station Seen as China s Friend
+	India s Going to the Moon, and the Country Is Pumped
+	Acute Monsoon Flooding in Nepal and India Leaves Dozens Dead
+	British Leaks Describe Trump s  Act of Diplomatic Vandalism  on Iran Deal
 
 	Src: BBC News - World (https://feeds.bbci.co.uk/news/world/rss.xml)
-	---
-	New leak claims Trump scrapped Iran nuclear deal 'to spite Obama'
-	New York power cut: Supply restored in Manhattan
-	Man dies after attacking Tacoma immigration jail, police say
-	Iranian tanker will be released if oil isn't going to Syria, says Hunt
-	France to create new space defence command in September
+	 ---
+	Inside Iran: Iranians on Trump and the nuclear deal
+	Trump under fire for racially-charged tweets against congresswomen
+	UN calls for Libyan migrant detention centres to be shut
+	Bastille Day: Police clash with yellow vests after parade
+	Burundi's Imbonerakure leader named head of RTNB
 
 	Src: Reuters: World News (http://feeds.reuters.com/reuters/worldnews)
-	---
-	Taiwan president travels to Haiti to bolster relations in the region
-	Hong Kong protesters, police clash as demonstrations target Chinese traders
-	Cuba takes first step in railways upgrade with Chinese, Russian help
-	Cuba hopes for slight growth as Trump pummels Caribbean island
-	Monsoon rains kill 30 people in Nepal, others missing
+	 ---
+	Rouhani says Iran ready to talk to U.S. if sanctions lifted
+	Guatemala president postpones Washington visit where asylum talks were planned
+	Hong Kong extradition protesters escalate fight in suburbs
+	Death toll in Nepal floods rises to 55, thousands displaced
+	Erdogan says Trump can waive sanctions on Turkey: Haberturk
 
-	Src: International (https://www.economist.com/international/rss.xml)
-	---
-	Why are happy people voting for angry parties?
-	Children make parents happy, after all
-	A brief history—and future—of credit scores
-	The Gulf of Guinea is now the world’s worst piracy hotspot
-	Pet-ownership is booming across the world
-
-	Src: NIST Beacon v1 (https://beacon.nist.gov/rest/record/last)
-	---
-	1A13A30ED048D48603F062993C69648C0FBF56DB5FE13FA3817511FFCD6AD1E7C81C7F82055DB20E18993678E9C71BBC1C4228C29C8320CE477DF1CE9945AF1E
+	Src: Latest Updates (https://www.economist.com/latest/rss.xml)
+	 ---
+	Why much is at stake in a tale of teachers in Middle America
+	Helping people with learning disabilities into jobs
+	Is conservatism in crisis?
+	Berlin s Museum Island gets a much-needed revamp
+	 It s a pro-Western democracy, yet the president is a pariah Taiwan s leader on tour
 
 	Src: NIST Beacon v2 (https://beacon.nist.gov/beacon/2.0/pulse/last)
-	---
-	541C24E069D78E9728990DF6A490BF3E3B271B9EFFCF5F08851D791048ED5423707F9C5E592C1B75B5ACC23562CECF0F25F14063D0A2831EBC72BD4972355445
+	 ---
+	705F408C507E869D617972E6A532B2AB95BDE4AEA9910E58C3F931A3B09DAE5F6192A315F1E566B05D18B3FFE8D45AD1B24FA47018075A3651012893C43B2382
 
 	Src: Blockchain.Info [block depth 10] (https://blockchain.info/blocks/?format=json)
-	---
-	0000000000000000000db40b8598bd32f992461dce4c1b8c344b3b140bc5a79f
+	 ---
+	000000000000000000024d92c86b07d4da27ea25c509dd8397809982facc4f1a
 
-	Src: Moneroblocks.Info [block depth 10] (https://moneroblocks.info/api/get_block_header/1878020)
-	---
-	cafbc5e7efb2277a6aa90eff6ba3a32b36ac768221b2600cc6b7a41b32645b9a
+	Src: Moneroblocks.Info [block depth 10] (https://moneroblocks.info/api/get_block_header/1878415)
+	 ---
+	fbde38dc1da52e0718a065beb2acdef6bb28029328f84cd337d057853ddc4a3b

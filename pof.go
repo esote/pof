@@ -2,15 +2,17 @@ package main
 
 import (
 	"encoding/json"
-	"encoding/xml"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"regexp"
 	"time"
 
 	"github.com/mmcdole/gofeed"
 )
+
+var re = regexp.MustCompile(`[^[:ascii:]]+`)
 
 func main() {
 	parser := gofeed.NewParser()
@@ -38,7 +40,7 @@ func news(parser *gofeed.Parser, count int) {
 		"https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
 		"https://feeds.bbci.co.uk/news/world/rss.xml",
 		"http://feeds.reuters.com/reuters/worldnews",
-		"https://www.economist.com/international/rss.xml",
+		"https://www.economist.com/latest/rss.xml",
 	}
 
 	for _, url := range urls {
@@ -52,10 +54,10 @@ func news(parser *gofeed.Parser, count int) {
 			log.Fatalf("couldn't find %d items", count)
 		}
 
-		fmt.Printf("Src: %s (%s)\n ---\n", feed.Title, url)
+		fmt.Printf("Src: %s (%s)\n ---\n", re.ReplaceAllString(feed.Title, " "), url)
 
 		for i := 0; i < count; i++ {
-			fmt.Printf("%s\n", feed.Items[i].Title)
+			fmt.Printf("%s\n", re.ReplaceAllString(feed.Items[i].Title, " "))
 		}
 
 		fmt.Println()
@@ -63,38 +65,9 @@ func news(parser *gofeed.Parser, count int) {
 }
 
 func nist() {
-	v1URL := "https://beacon.nist.gov/rest/record/last"
 	v2URL := "https://beacon.nist.gov/beacon/2.0/pulse/last"
 
-	resp, err := http.Get(v1URL)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	v1XML, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if err := resp.Body.Close(); err != nil {
-		log.Fatal(err)
-	}
-
-	var v1 struct {
-		XMLName     xml.Name `xml:"record"`
-		OutputValue string   `xml:"outputValue"`
-	}
-
-	if err := xml.Unmarshal(v1XML, &v1); err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("Src: NIST Beacon v1 (%s)\n ---\n", v1URL)
-	fmt.Printf("%s\n\n", v1.OutputValue)
-
-	resp, err = http.Get(v2URL)
+	resp, err := http.Get(v2URL)
 
 	if err != nil {
 		log.Fatal(err)
