@@ -52,7 +52,7 @@ func news(parser *gofeed.Parser, count int) {
 			log.Fatalf("couldn't find %d items", count)
 		}
 
-		fmt.Printf("Src: %s (%s)\n---\n", feed.Title, url)
+		fmt.Printf("Src: %s (%s)\n ---\n", feed.Title, url)
 
 		for i := 0; i < count; i++ {
 			fmt.Printf("%s\n", feed.Items[i].Title)
@@ -91,7 +91,7 @@ func nist() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Src: NIST Beacon v1 (%s)\n---\n", v1URL)
+	fmt.Printf("Src: NIST Beacon v1 (%s)\n ---\n", v1URL)
 	fmt.Printf("%s\n\n", v1.OutputValue)
 
 	resp, err = http.Get(v2URL)
@@ -120,7 +120,7 @@ func nist() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Src: NIST Beacon v2 (%s)\n---\n", v2URL)
+	fmt.Printf("Src: NIST Beacon v2 (%s)\n ---\n", v2URL)
 	fmt.Printf("%s\n\n", v2.Pulse.OutputValue)
 
 }
@@ -160,7 +160,7 @@ func btc() {
 		log.Fatalf("len(btc.Blocks) < %d", depth)
 	}
 
-	fmt.Printf("Src: Blockchain.Info [block depth %d] (%s)\n---\n",
+	fmt.Printf("Src: Blockchain.Info [block depth %d] (%s)\n ---\n",
 		depth, btcURL)
 	fmt.Printf("%s\n\n", btc.Blocks[10].Hash)
 }
@@ -225,7 +225,7 @@ func monero() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Src: Moneroblocks.Info [block depth %d] (%s)\n---\n",
+	fmt.Printf("Src: Moneroblocks.Info [block depth %d] (%s)\n ---\n",
 		depth,
 		fmt.Sprintf(monURL, monStats.Height-depth))
 	fmt.Printf("%s\n\n", monBlockHdr.BlockHeader.Hash)
