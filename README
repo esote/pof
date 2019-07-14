@@ -1,0 +1,80 @@
+Proof of Freshness. Run with:
+
+	$ go get github.com/esote/pof
+	$ cd $GOPATH/src/github.com/esote/pof && go run pof.go
+
+Collate values from multiple sources. Used to prove something cannot have been
+prepared ahead of the date specified within an hour or so.
+
+Current sources:
+	- News (selects top 5 articles)
+		- Der Spiegel International
+		- New York Times World News
+		- BBC World News
+		- Reuters World News
+		- The Economist International
+	- NIST randomness beacon (v1 and v2)
+	- Bitcoin block hash, depth 10
+	- Monero block hash, depth 10
+
+Inspired by the proof of freshness used in Qubes OS's canaries.
+
+Example output:
+
+	Date: 2019-07-14 04:01 UTC
+
+	Src: SPIEGEL ONLINE - International (https://www.spiegel.de/international/index.rss)
+	---
+	Far-Right AfD: Germany's Populist Party Embraces Its Extremist Wing
+	A Question of Trust: Ursula Von Der Leyen Recruits Team to Win Over Brussels
+	Feeding People With Science: Plant Researchers Brace for Population Explosion
+	A Heroine and a Figure of Hate: Carola Rackete and Europe's Troubling Refugee Policies
+	Sea-Watch Captain Carola Rackete: 'We Were All in a State of Total Despair'
+
+	Src: NYT > World News (https://rss.nytimes.com/services/xml/rss/nyt/World.xml)
+	---
+	After a Police Shooting, Ethiopian Israelis Seek a ‘Black Lives Matter’ Reckoning
+	The Taliban Promise to Protect Women. Here’s Why Women Don’t Believe Them.
+	Hong Kong Protest Against Mainland Chinese Traders Turns Violent
+	At Least 26 Dead in Somalia Hotel Attack Claimed by Shabab
+	A ‘Dark Lord’ Falls in Russia’s Growing Power Struggle
+
+	Src: BBC News - World (https://feeds.bbci.co.uk/news/world/rss.xml)
+	---
+	New leak claims Trump scrapped Iran nuclear deal 'to spite Obama'
+	New York power cut: Supply restored in Manhattan
+	Man dies after attacking Tacoma immigration jail, police say
+	Iranian tanker will be released if oil isn't going to Syria, says Hunt
+	France to create new space defence command in September
+
+	Src: Reuters: World News (http://feeds.reuters.com/reuters/worldnews)
+	---
+	Taiwan president travels to Haiti to bolster relations in the region
+	Hong Kong protesters, police clash as demonstrations target Chinese traders
+	Cuba takes first step in railways upgrade with Chinese, Russian help
+	Cuba hopes for slight growth as Trump pummels Caribbean island
+	Monsoon rains kill 30 people in Nepal, others missing
+
+	Src: International (https://www.economist.com/international/rss.xml)
+	---
+	Why are happy people voting for angry parties?
+	Children make parents happy, after all
+	A brief history—and future—of credit scores
+	The Gulf of Guinea is now the world’s worst piracy hotspot
+	Pet-ownership is booming across the world
+
+	Src: NIST Beacon v1 (https://beacon.nist.gov/rest/record/last)
+	---
+	1A13A30ED048D48603F062993C69648C0FBF56DB5FE13FA3817511FFCD6AD1E7C81C7F82055DB20E18993678E9C71BBC1C4228C29C8320CE477DF1CE9945AF1E
+
+	Src: NIST Beacon v2 (https://beacon.nist.gov/beacon/2.0/pulse/last)
+	---
+	541C24E069D78E9728990DF6A490BF3E3B271B9EFFCF5F08851D791048ED5423707F9C5E592C1B75B5ACC23562CECF0F25F14063D0A2831EBC72BD4972355445
+
+	Src: Blockchain.Info [block depth 10] (https://blockchain.info/blocks/?format=json)
+	---
+	0000000000000000000db40b8598bd32f992461dce4c1b8c344b3b140bc5a79f
+
+	Src: Moneroblocks.Info [block depth 10] (https://moneroblocks.info/api/get_block_header/1878020)
+	---
+	cafbc5e7efb2277a6aa90eff6ba3a32b36ac768221b2600cc6b7a41b32645b9a
