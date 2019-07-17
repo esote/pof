@@ -2,27 +2,22 @@ package main
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"regexp"
 	"time"
-
-	"github.com/mmcdole/gofeed"
 )
 
-var re = regexp.MustCompile(`[^[:ascii:]]+`)
-
 func main() {
-	parser := gofeed.NewParser()
-
 	// date
 	fmt.Printf("Date: %s\n\n",
 		time.Now().UTC().Format("2006-01-02 15:04 MST"))
 
 	// news feeds
-	news(parser, 5)
+	news()
 
 	// NIST randomness beacons
 	nist()
@@ -34,7 +29,19 @@ func main() {
 	monero()
 }
 
-func news(parser *gofeed.Parser, count int) {
+type Rss struct {
+	XMLName xml.Name `xml:"rss"`
+	Channel struct {
+		Title string `xml:"title"`
+		Items []struct {
+			Title string `xml:"title"`
+		} `xml:"item"`
+	} `xml:"channel"`
+}
+
+func news() {
+	var re = regexp.MustCompile(`[^[:ascii:]]+`)
+
 	urls := []string{
 		"https://www.spiegel.de/international/index.rss",
 		"https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
@@ -43,25 +50,53 @@ func news(parser *gofeed.Parser, count int) {
 		"https://www.economist.com/latest/rss.xml",
 	}
 
+	const count = 5
+
 	for _, url := range urls {
-		feed, err := parser.ParseURL(url)
+		rss, err := parseRss(url)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		if len(feed.Items) < count {
+		if len(rss.Channel.Items) < count {
 			log.Fatalf("couldn't find %d items", count)
 		}
 
-		fmt.Printf("Src: %s (%s)\n ---\n", re.ReplaceAllString(feed.Title, " "), url)
+		fmt.Printf("Src: %s (%s)\n ---\n", re.ReplaceAllString(rss.Channel.Title, " "), url)
 
 		for i := 0; i < count; i++ {
-			fmt.Printf("%s\n", re.ReplaceAllString(feed.Items[i].Title, " "))
+			fmt.Printf("%s\n", re.ReplaceAllString(rss.Channel.Items[i].Title, " "))
 		}
 
 		fmt.Println()
 	}
+}
+
+func parseRss(url string) (*Rss, error) {
+	resp, err := http.Get(url)
+
+	if err != nil {
+		return nil, err
+	}
+
+	rssxml, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if err := resp.Body.Close(); err != nil {
+		return nil, err
+	}
+
+	var rss Rss
+
+	if err := xml.Unmarshal(rssxml, &rss); err != nil {
+		return nil, err
+	}
+
+	return &rss, nil
 }
 
 func nist() {
@@ -135,7 +170,7 @@ func btc() {
 
 	fmt.Printf("Src: Blockchain.Info [block depth %d] (%s)\n ---\n",
 		depth, btcURL)
-	fmt.Printf("%s\n\n", btc.Blocks[10].Hash)
+	fmt.Printf("%s\n\n", btc.Blocks[depth].Hash)
 }
 
 func monero() {
