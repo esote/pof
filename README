@@ -4,79 +4,28 @@ Proof of Freshness. Run with:
 	$ cd $GOPATH/src/github.com/esote/pof && go run pof.go
 
 Collate values from multiple sources. Used to prove something cannot have been
-prepared ahead of the date specified within an hour or so.
+prepared ahead of the date specified within a day or so.
 
 Current sources:
-	- News (selects top 5 articles)
-		- Der Spiegel International
-		- New York Times World News
-		- BBC World News
-		- Reuters World News
-		- The Economist Latest Updates
-	- NIST randomness beacon v2
-	- Bitcoin block hash, depth 10
-	- Monero block hash, depth 10
 	- arXiv recently submitted preprints
+	- Cryptocurrency block hashes (depth 10)
+		- Bitcoin
+		- Monero
+	- News (5 latest articles)
+		- Der Spiegel international
+		- New York Times world news
+		- BBC world news
+		- Reuters world news
+		- The Economist latest updates
+	- NIST beacon v2
 
 Inspired by the proof of freshness used in Qubes OS's canaries.
 
 Example output:
 
-	Date: 2019-07-17 22:57 UTC
+	Date: 2019-07-17 23:32 UTC
 
-	Src: News: SPIEGEL ONLINE - International (https://www.spiegel.de/international/index.rss)
-	 ---
-	The New European Commission President: Von Der Leyen's Election Is a Big Moment for Europe
-	'Euro Orphans': The Romanian Children Growing up Without Their Parents
-	Far-Right AfD: Germany's Populist Party Embraces Its Extremist Wing
-	A Question of Trust: Ursula Von Der Leyen Recruits Team to Win Over Brussels
-	Feeding People With Science: Plant Researchers Brace for Population Explosion
-
-	Src: News: NYT > World News (https://rss.nytimes.com/services/xml/rss/nyt/World.xml)
-	 ---
-	Ebola Outbreak in Congo Is Declared a Global Health Emergency
-	A Prosperous China Says  Men Preferred,  and Women Lose
-	Iran Says It Aided Oil Tanker, Amid Reports of Missing U.A.E. Ship
-	As Iran vs. West Tensions Rise, So Does Uncertainty Over Prisoners
-	What Kind of Peace Talks Are These : On the Front Lines of a 17-Year War
-
-	Src: News: BBC News - World (https://feeds.bbci.co.uk/news/world/rss.xml)
-	 ---
-	El Chapo trial: Mexican drug lord Joaqu n Guzm n gets life in prison
-	DR Congo Ebola outbreak declared global health emergency
-	Opioid crisis: US drug overdose deaths drop by 5.1%
-	Dolphin megapod spotted off California coast swimming alongside boat
-	Battle of Waterloo: Excavation unearths amputated limbs
-
-	Src: News: Reuters: World News (http://feeds.reuters.com/reuters/worldnews)
-	 ---
-	U.S. removing Turkey from F-35 program after its Russian missile defense purchase
-	Croatia PM reshuffles cabinet, proposes six new ministers
-	UK's Johnson declines to comment on plan to facilitate a no-deal Brexit
-	UK ministers could resign in battle over suspending parliament: BBC reporter
-	Criticizing populism, Britain's May has Brexit advice for successor
-
-	Src: News: Latest Updates (https://www.economist.com/latest/rss.xml)
-	 ---
-	The next giant leap for mankind
-	Can Rory McIlroy win on his home turf?
-	Donald Trump s border wall reaches the Supreme Court
-	Unreliable evidence a forensic look at identification
-	The industry and poetry of David Smith
-
-	Src: NIST Beacon v2 (https://beacon.nist.gov/beacon/2.0/pulse/last)
-	 ---
-	019BB7134A0B15126A4677E81598EDFA8780AAD3B92B4950026EFB742BCE4EFE94BC6738772DB21D1E560CCBEC8648E01A4BE533EE03B8B4E92C774DCB53549F
-
-	Src: Blockchain.Info [block depth 10] (https://blockchain.info/block-height/585860?format=json)
-	 ---
-	00000000000000000004cdf0df4abd8b7a4d93d80d00b8349c2307d8903187ed
-
-	Src: Moneroblocks.Info [block depth 10] (https://moneroblocks.info/api/get_block_header/1880753)
-	 ---
-	e19dd23ad944ba4dc467a9cadb0e8db3c207e52c67349cc285302359c8eb6f0a
-
-	Src: arXiv recently submitted (https://export.arxiv.org/api/query?search_query=all&sortBy=submittedDate&sortOrder=descending&max_results=10)
+	Src: arXiv (https://export.arxiv.org/api/query?search_query=all&sortBy=submittedDate&sortOrder=descending&max_results=10)
 	 ---
 	On Higher Dimensional Generalized Kuramoto Oscillator Systems (Max Lipton, et al., 2019-07-16T17:19:55Z)
 	Higher genus relative Gromov--Witten theory and DR-cycles (Honglu Fan, et al., 2019-07-16T17:03:16Z)
@@ -88,3 +37,56 @@ Example output:
 	Equilibrium Microcanonical Annealing for First-Order Phase Transitions (Nathan Rose, et al., 2019-07-16T15:25:52Z)
 	Minimisation of Event Structures (Paolo Baldan, et al., 2019-07-16T14:48:54Z)
 	Serre's Property (FA) for automorphism groups of free products (Naomi Andrew, 2019-07-16T14:14:11Z)
+
+	Src: Blockchain.Info [depth 10] (https://blockchain.info/block-height/585864?format=json)
+	 ---
+	0000000000000000001d7805ccdfcd4f91d491da214beedc9a555c5b134ec3d9
+
+	Src: Moneroblocks.Info [depth 10] (https://moneroblocks.info/api/get_block_header/1880770)
+	 ---
+	f003b6467d8379c8d70038b6798bf694fad0fcc813e1aa17ab34f33436ac9d22
+
+	Src: Der Spiegel international (https://www.spiegel.de/international/index.rss)
+	 ---
+	The New European Commission President: Von Der Leyen's Election Is a Big Moment for Europe
+	'Euro Orphans': The Romanian Children Growing up Without Their Parents
+	Far-Right AfD: Germany's Populist Party Embraces Its Extremist Wing
+	A Question of Trust: Ursula Von Der Leyen Recruits Team to Win Over Brussels
+	Feeding People With Science: Plant Researchers Brace for Population Explosion
+
+	Src: New York Times world news (https://rss.nytimes.com/services/xml/rss/nyt/World.xml)
+	 ---
+	Ebola Outbreak in Congo Is Declared a Global Health Emergency
+	A Prosperous China Says  Men Preferred,  and Women Lose
+	Iran Says It Aided Oil Tanker, Amid Reports of Missing U.A.E. Ship
+	As Iran vs. West Tensions Rise, So Does Uncertainty Over Prisoners
+	What Kind of Peace Talks Are These : On the Front Lines of a 17-Year War
+
+	Src: BBC world news (https://feeds.bbci.co.uk/news/world/rss.xml)
+	 ---
+	El Chapo trial: Mexican drug lord Joaqu n Guzm n gets life in prison
+	DR Congo Ebola outbreak declared global health emergency
+	Opioid crisis: US drug overdose deaths drop by 5.1%
+	Kevin Spacey: Massachusetts prosecutors drop sex assault case
+	Dolphin megapod spotted off California coast swimming alongside boat
+
+	Src: Reuters world news (http://feeds.reuters.com/reuters/worldnews)
+	 ---
+	U.S. removing Turkey from F-35 program after its Russian missile defense purchase
+	Croatia PM reshuffles cabinet, proposes six new ministers
+	UK's Johnson declines to comment on plan to facilitate a no-deal Brexit
+	UK ministers could resign in battle over suspending parliament: BBC reporter
+	Criticizing populism, Britain's May has Brexit advice for successor
+
+	Src: The Economist latest updates (https://www.economist.com/latest/rss.xml)
+	 ---
+	The next giant leap for mankind
+	Can Rory McIlroy win on his home turf?
+	Donald Trump s border wall reaches the Supreme Court
+	Unreliable evidence a forensic look at identification
+	The industry and poetry of David Smith
+
+	Src: NIST beacon v2 (https://beacon.nist.gov/beacon/2.0/pulse/last)
+	 ---
+	7DADB246FF3F72466A83D24920EACFDEE2D0F035A226C664DD614323A0B7F8153A0FC3130128D40A2E270014BFB8FCF676296B39679C690B719C314C1B31A23F
+
