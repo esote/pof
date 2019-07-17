@@ -16,62 +16,75 @@ Current sources:
 	- NIST randomness beacon v2
 	- Bitcoin block hash, depth 10
 	- Monero block hash, depth 10
+	- arXiv recently submitted preprints
 
 Inspired by the proof of freshness used in Qubes OS's canaries.
 
 Example output:
 
-	Date: 2019-07-17 03:29 UTC
+	Date: 2019-07-17 22:57 UTC
 
-	Src: SPIEGEL ONLINE - International (https://www.spiegel.de/international/index.rss)
+	Src: News: SPIEGEL ONLINE - International (https://www.spiegel.de/international/index.rss)
 	 ---
+	The New European Commission President: Von Der Leyen's Election Is a Big Moment for Europe
 	'Euro Orphans': The Romanian Children Growing up Without Their Parents
 	Far-Right AfD: Germany's Populist Party Embraces Its Extremist Wing
 	A Question of Trust: Ursula Von Der Leyen Recruits Team to Win Over Brussels
 	Feeding People With Science: Plant Researchers Brace for Population Explosion
-	A Heroine and a Figure of Hate: Carola Rackete and Europe's Troubling Refugee Policies
 
-	Src: NYT > World News (https://rss.nytimes.com/services/xml/rss/nyt/World.xml)
+	Src: News: NYT > World News (https://rss.nytimes.com/services/xml/rss/nyt/World.xml)
 	 ---
+	Ebola Outbreak in Congo Is Declared a Global Health Emergency
 	A Prosperous China Says  Men Preferred,  and Women Lose
-	Epstein s Ties to Former Israeli Leader Shake Up Election Campaign
-	A Runaway Train Explosion Killed 47, but Deadly Cargo Still Rides the Rails
-	Iran s Top Leader Strikes Defiant Tone as Trump Says  We re Not Looking for Regime Change
-	Turkey s Erdogan Goes His Own Way as Distrust With U.S. Grows
+	Iran Says It Aided Oil Tanker, Amid Reports of Missing U.A.E. Ship
+	As Iran vs. West Tensions Rise, So Does Uncertainty Over Prisoners
+	What Kind of Peace Talks Are These : On the Front Lines of a 17-Year War
 
-	Src: BBC News - World (https://feeds.bbci.co.uk/news/world/rss.xml)
+	Src: News: BBC News - World (https://feeds.bbci.co.uk/news/world/rss.xml)
 	 ---
-	US House condemns Trump's attacks on four congresswomen
-	Von der Leyen elected EU Commission head after MEPs vote
-	Johnny Clegg, South African musician and activist, dies aged 66
-	Norway's spy Town: 'They took him and they have broken him'
-	Facebook's Libra cryptocurrency attacked at Senate hearing
+	El Chapo trial: Mexican drug lord Joaqu n Guzm n gets life in prison
+	DR Congo Ebola outbreak declared global health emergency
+	Opioid crisis: US drug overdose deaths drop by 5.1%
+	Dolphin megapod spotted off California coast swimming alongside boat
+	Battle of Waterloo: Excavation unearths amputated limbs
 
-	Src: Reuters: World News (http://feeds.reuters.com/reuters/worldnews)
+	Src: News: Reuters: World News (http://feeds.reuters.com/reuters/worldnews)
 	 ---
-	Gun megastore plan in New Zealand's Christchurch sparks backlash: media
-	Puerto Rico governor vows to remain in office after violent protests
-	ACLU files suit to block Trump rule to stop asylum-seekers
-	Germany's Von der Leyen secures powerful EU executive top job
-	German Conservative boss to succeed von der Leyen as minister
+	U.S. removing Turkey from F-35 program after its Russian missile defense purchase
+	Croatia PM reshuffles cabinet, proposes six new ministers
+	UK's Johnson declines to comment on plan to facilitate a no-deal Brexit
+	UK ministers could resign in battle over suspending parliament: BBC reporter
+	Criticizing populism, Britain's May has Brexit advice for successor
 
-	Src: Latest Updates (https://www.economist.com/latest/rss.xml)
+	Src: News: Latest Updates (https://www.economist.com/latest/rss.xml)
 	 ---
-	Ursula von der Leyen is elected European Commission president
-	How slow can you grow?
-	Novak Djokovic wins the most thrilling men s tennis match ever
-	 The Farewell  is a poignant study of family, tradition and identity
-	What is a tiebreak?
+	The next giant leap for mankind
+	Can Rory McIlroy win on his home turf?
+	Donald Trump s border wall reaches the Supreme Court
+	Unreliable evidence a forensic look at identification
+	The industry and poetry of David Smith
 
 	Src: NIST Beacon v2 (https://beacon.nist.gov/beacon/2.0/pulse/last)
 	 ---
-	0CC14EA51480B1A72D20DBF4099676C9CE80535AECD6213BA8AB70F696FEF4D7415BECB951C9A0243AAF5511D4C8F335062E8F33273AB5FF61692407A99D2D67
+	019BB7134A0B15126A4677E81598EDFA8780AAD3B92B4950026EFB742BCE4EFE94BC6738772DB21D1E560CCBEC8648E01A4BE533EE03B8B4E92C774DCB53549F
 
-	Src: Blockchain.Info [block depth 10] (https://blockchain.info/block-height/585763?format=json)
+	Src: Blockchain.Info [block depth 10] (https://blockchain.info/block-height/585860?format=json)
 	 ---
-	00000000000000000000f55723baa1e873632afb1c8fc27a496c9e44caab47d9
+	00000000000000000004cdf0df4abd8b7a4d93d80d00b8349c2307d8903187ed
 
-	Src: Moneroblocks.Info [block depth 10] (https://moneroblocks.info/api/get_block_header/1880172)
+	Src: Moneroblocks.Info [block depth 10] (https://moneroblocks.info/api/get_block_header/1880753)
 	 ---
-	976170416a969c8e3a2cca3069a3c592e9e80ba81707ae75393bed3404b3f8f3
+	e19dd23ad944ba4dc467a9cadb0e8db3c207e52c67349cc285302359c8eb6f0a
 
+	Src: arXiv recently submitted (https://export.arxiv.org/api/query?search_query=all&sortBy=submittedDate&sortOrder=descending&max_results=10)
+	 ---
+	On Higher Dimensional Generalized Kuramoto Oscillator Systems (Max Lipton, et al., 2019-07-16T17:19:55Z)
+	Higher genus relative Gromov--Witten theory and DR-cycles (Honglu Fan, et al., 2019-07-16T17:03:16Z)
+	Measuring I2P Censorship at a Global Scale (Nguyen Phong Hoang, et al., 2019-07-16T16:57:22Z)
+	On the smallest singular value of multivariate Vandermonde matrices with cluster... (Stefan Kunis, et al., 2019-07-16T16:55:13Z)
+	Primarily Undergraduate Institutions and the Astronomy Community (Joseph Ribaudo, et al., 2019-07-16T16:53:41Z)
+	Measurement of the jet mass in high transverse momentum $Z(\rightarrow b\overlin... (ATLAS Collaboration, 2019-07-16T16:03:43Z)
+	On The Termination of a Flooding Process (Walter Hussak, et al., 2019-07-16T15:45:12Z)
+	Equilibrium Microcanonical Annealing for First-Order Phase Transitions (Nathan Rose, et al., 2019-07-16T15:25:52Z)
+	Minimisation of Event Structures (Paolo Baldan, et al., 2019-07-16T14:48:54Z)
+	Serre's Property (FA) for automorphism groups of free products (Naomi Andrew, 2019-07-16T14:14:11Z)

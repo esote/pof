@@ -24,6 +24,7 @@ func main() {
 		nist,
 		btc,
 		monero,
+		arxiv,
 	}
 
 	for _, source := range sources {
@@ -33,16 +34,10 @@ func main() {
 	}
 }
 
-// Structure of an RSS feed, exposing only the fields useful to print news().
-type Rss struct {
-	Name   string   `xml:"channel>title"`
-	Titles []string `xml:"channel>item>title"`
-}
+var re = regexp.MustCompile(`[^[:ascii:]]+`)
 
 // International news feeds.
 func news() error {
-	re := regexp.MustCompile(`[^[:ascii:]]+`)
-
 	urls := [...]string{
 		"https://www.spiegel.de/international/index.rss",
 		"https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
@@ -54,9 +49,19 @@ func news() error {
 	const count = 5
 
 	for _, url := range urls {
-		rss, err := parseRss(url)
+		data, err := getRead(url)
 
 		if err != nil {
+			return err
+		}
+
+		// Structure of an RSS feed, exposing only the useful fields
+		var rss struct {
+			Name   string   `xml:"channel>title"`
+			Titles []string `xml:"channel>item>title"`
+		}
+
+		if err = xml.Unmarshal(data, &rss); err != nil {
 			return err
 		}
 
@@ -64,7 +69,7 @@ func news() error {
 			return fmt.Errorf("couldn't find %d articles", count)
 		}
 
-		fmt.Printf("Src: %s (%s)\n ---\n",
+		fmt.Printf("Src: News: %s (%s)\n ---\n",
 			strings.TrimSpace(re.ReplaceAllString(rss.Name, " ")),
 			url)
 
@@ -76,21 +81,6 @@ func news() error {
 	}
 
 	return nil
-}
-
-// GET and unmarshal RSS URL.
-func parseRss(url string) (*Rss, error) {
-	data, err := getRead(url)
-
-	if err != nil {
-		return nil, err
-	}
-
-	var rss Rss
-
-	err = xml.Unmarshal(data, &rss)
-
-	return &rss, err
 }
 
 // NIST randomness beacon v2.
@@ -212,6 +202,72 @@ func monero() error {
 	fmt.Printf("Src: Moneroblocks.Info [block depth %d] (%s)\n ---\n",
 		depth, fmt.Sprintf(blockUrl, stats.Height-depth))
 	fmt.Printf("%s\n\n", block.BlockHeader.Hash)
+
+	return nil
+}
+
+// arXiv recently published preprints.
+func arxiv() error {
+	const (
+		queryUrl = "https://export.arxiv.org/api/query?" +
+			"search_query=all&sortBy=submittedDate&" +
+			"sortOrder=descending&max_results=%d"
+		count  = 10
+		maxlen = 80
+	)
+
+	data, err := getRead(fmt.Sprintf(queryUrl, count))
+
+	if err != nil {
+		return err
+	}
+
+	var arxiv struct {
+		Entries []struct {
+			Published string   `xml:"published"`
+			Title     string   `xml:"title"`
+			Authors   []string `xml:"author>name"`
+		} `xml:"entry"`
+	}
+
+	if err := xml.Unmarshal(data, &arxiv); err != nil {
+		return err
+	}
+
+	if len(arxiv.Entries) != count {
+		return fmt.Errorf("response length mismatched %d", count)
+	}
+
+	fmt.Printf("Src: arXiv recently submitted (%s)\n ---\n",
+		fmt.Sprintf(queryUrl, count))
+
+	for _, entry := range arxiv.Entries {
+		entry.Title = re.ReplaceAllString(entry.Title, " ")
+		entry.Title = strings.ReplaceAll(entry.Title, "\n ", "")
+
+		if len(entry.Title) > maxlen {
+			entry.Title = entry.Title[:maxlen] + "..."
+		}
+
+		entry.Title = strings.TrimSpace(entry.Title)
+
+		var author string
+
+		if len(entry.Authors) > 0 {
+			author = entry.Authors[0]
+		}
+
+		if len(entry.Authors) > 1 {
+			author += ", et al."
+		}
+
+		author = strings.TrimSpace(re.ReplaceAllString(author, " "))
+
+		fmt.Printf("%s (%s, %s)\n", entry.Title, author,
+			entry.Published)
+	}
+
+	fmt.Println()
 
 	return nil
 }
