@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -34,13 +35,8 @@ func main() {
 
 // Structure of an RSS feed, exposing only the fields useful to print news().
 type Rss struct {
-	XMLName xml.Name `xml:"rss"`
-	Channel struct {
-		Title string `xml:"title"`
-		Items []struct {
-			Title string `xml:"title"`
-		} `xml:"item"`
-	} `xml:"channel"`
+	Name   string   `xml:"channel>title"`
+	Titles []string `xml:"channel>item>title"`
 }
 
 // International news feeds.
@@ -64,14 +60,16 @@ func news() error {
 			return err
 		}
 
-		if len(rss.Channel.Items) < count {
-			return fmt.Errorf("couldn't find %d items", count)
+		if len(rss.Titles) < count {
+			return fmt.Errorf("couldn't find %d articles", count)
 		}
 
-		fmt.Printf("Src: %s (%s)\n ---\n", re.ReplaceAllString(rss.Channel.Title, " "), url)
+		fmt.Printf("Src: %s (%s)\n ---\n",
+			strings.TrimSpace(re.ReplaceAllString(rss.Name, " ")),
+			url)
 
 		for i := 0; i < count; i++ {
-			fmt.Printf("%s\n", re.ReplaceAllString(rss.Channel.Items[i].Title, " "))
+			fmt.Println(strings.TrimSpace(re.ReplaceAllString(rss.Titles[i], " ")))
 		}
 
 		fmt.Println()
@@ -80,7 +78,7 @@ func news() error {
 	return nil
 }
 
-// GET and unmarshal specified RSS URL.
+// GET and unmarshal RSS URL.
 func parseRss(url string) (*Rss, error) {
 	data, err := getRead(url)
 
