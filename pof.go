@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strconv"
 	"time"
 )
 
@@ -134,15 +135,16 @@ func nist() {
 }
 
 func btc() {
-	btcURL := "https://blockchain.info/blocks/?format=json"
+	btcHeightURL := "https://blockchain.info/q/getblockcount"
+	btcBlockURL := "https://blockchain.info/block-height/%d?format=json"
 
-	resp, err := http.Get(btcURL)
+	resp, err := http.Get(btcHeightURL)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	btcJSON, err := ioutil.ReadAll(resp.Body)
+	btcHeight, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		log.Fatal(err)
@@ -152,25 +154,48 @@ func btc() {
 		log.Fatal(err)
 	}
 
-	var btc struct {
+	height, err := strconv.ParseInt(string(btcHeight), 10, 64)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	const depth = 10
+
+	resp, err = http.Get(fmt.Sprintf(btcBlockURL, height-depth))
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	btcBlockJSON, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := resp.Body.Close(); err != nil {
+		log.Fatal(err)
+	}
+
+	var btcBlock struct {
 		Blocks []struct {
 			Hash string
 		}
 	}
 
-	if err := json.Unmarshal(btcJSON, &btc); err != nil {
+	if err := json.Unmarshal(btcBlockJSON, &btcBlock); err != nil {
 		log.Fatal(err)
 	}
 
-	depth := 10
-
-	if len(btc.Blocks) < depth {
-		log.Fatalf("len(btc.Blocks) < %d", depth)
+	if len(btcBlock.Blocks) == 0 {
+		log.Fatal("no blocks found")
 	}
 
 	fmt.Printf("Src: Blockchain.Info [block depth %d] (%s)\n ---\n",
-		depth, btcURL)
-	fmt.Printf("%s\n\n", btc.Blocks[depth].Hash)
+		depth, fmt.Sprintf(btcBlockURL, height-depth))
+
+	fmt.Printf("%s\n\n", btcBlock.Blocks[0].Hash)
 }
 
 func monero() {
