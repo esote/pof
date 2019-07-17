@@ -21,56 +21,57 @@ Inspired by the proof of freshness used in Qubes OS's canaries.
 
 Example output:
 
-	Date: 2019-07-14 16:54 UTC
+	Date: 2019-07-17 03:29 UTC
 
 	Src: SPIEGEL ONLINE - International (https://www.spiegel.de/international/index.rss)
 	 ---
+	'Euro Orphans': The Romanian Children Growing up Without Their Parents
 	Far-Right AfD: Germany's Populist Party Embraces Its Extremist Wing
 	A Question of Trust: Ursula Von Der Leyen Recruits Team to Win Over Brussels
 	Feeding People With Science: Plant Researchers Brace for Population Explosion
 	A Heroine and a Figure of Hate: Carola Rackete and Europe's Troubling Refugee Policies
-	Sea-Watch Captain Carola Rackete: 'We Were All in a State of Total Despair'
 
 	Src: NYT > World News (https://rss.nytimes.com/services/xml/rss/nyt/World.xml)
 	 ---
-	Greens Are the New Hope for Europe s Center. For the Far Right, They re Enemy No. 1.
-	Hong Kong Protesters  New Target: A News Station Seen as China s Friend
-	India s Going to the Moon, and the Country Is Pumped
-	Acute Monsoon Flooding in Nepal and India Leaves Dozens Dead
-	British Leaks Describe Trump s  Act of Diplomatic Vandalism  on Iran Deal
+	A Prosperous China Says  Men Preferred,  and Women Lose
+	Epstein s Ties to Former Israeli Leader Shake Up Election Campaign
+	A Runaway Train Explosion Killed 47, but Deadly Cargo Still Rides the Rails
+	Iran s Top Leader Strikes Defiant Tone as Trump Says  We re Not Looking for Regime Change
+	Turkey s Erdogan Goes His Own Way as Distrust With U.S. Grows
 
 	Src: BBC News - World (https://feeds.bbci.co.uk/news/world/rss.xml)
 	 ---
-	Inside Iran: Iranians on Trump and the nuclear deal
-	Trump under fire for racially-charged tweets against congresswomen
-	UN calls for Libyan migrant detention centres to be shut
-	Bastille Day: Police clash with yellow vests after parade
-	Burundi's Imbonerakure leader named head of RTNB
+	US House condemns Trump's attacks on four congresswomen
+	Von der Leyen elected EU Commission head after MEPs vote
+	Johnny Clegg, South African musician and activist, dies aged 66
+	Norway's spy Town: 'They took him and they have broken him'
+	Facebook's Libra cryptocurrency attacked at Senate hearing
 
 	Src: Reuters: World News (http://feeds.reuters.com/reuters/worldnews)
 	 ---
-	Rouhani says Iran ready to talk to U.S. if sanctions lifted
-	Guatemala president postpones Washington visit where asylum talks were planned
-	Hong Kong extradition protesters escalate fight in suburbs
-	Death toll in Nepal floods rises to 55, thousands displaced
-	Erdogan says Trump can waive sanctions on Turkey: Haberturk
+	Gun megastore plan in New Zealand's Christchurch sparks backlash: media
+	Puerto Rico governor vows to remain in office after violent protests
+	ACLU files suit to block Trump rule to stop asylum-seekers
+	Germany's Von der Leyen secures powerful EU executive top job
+	German Conservative boss to succeed von der Leyen as minister
 
 	Src: Latest Updates (https://www.economist.com/latest/rss.xml)
 	 ---
-	Why much is at stake in a tale of teachers in Middle America
-	Helping people with learning disabilities into jobs
-	Is conservatism in crisis?
-	Berlin s Museum Island gets a much-needed revamp
-	 It s a pro-Western democracy, yet the president is a pariah Taiwan s leader on tour
+	Ursula von der Leyen is elected European Commission president
+	How slow can you grow?
+	Novak Djokovic wins the most thrilling men s tennis match ever
+	 The Farewell  is a poignant study of family, tradition and identity
+	What is a tiebreak?
 
 	Src: NIST Beacon v2 (https://beacon.nist.gov/beacon/2.0/pulse/last)
 	 ---
-	705F408C507E869D617972E6A532B2AB95BDE4AEA9910E58C3F931A3B09DAE5F6192A315F1E566B05D18B3FFE8D45AD1B24FA47018075A3651012893C43B2382
+	0CC14EA51480B1A72D20DBF4099676C9CE80535AECD6213BA8AB70F696FEF4D7415BECB951C9A0243AAF5511D4C8F335062E8F33273AB5FF61692407A99D2D67
 
-	Src: Blockchain.Info [block depth 10] (https://blockchain.info/blocks/?format=json)
+	Src: Blockchain.Info [block depth 10] (https://blockchain.info/block-height/585763?format=json)
 	 ---
-	000000000000000000024d92c86b07d4da27ea25c509dd8397809982facc4f1a
+	00000000000000000000f55723baa1e873632afb1c8fc27a496c9e44caab47d9
 
-	Src: Moneroblocks.Info [block depth 10] (https://moneroblocks.info/api/get_block_header/1878415)
+	Src: Moneroblocks.Info [block depth 10] (https://moneroblocks.info/api/get_block_header/1880172)
 	 ---
-	fbde38dc1da52e0718a065beb2acdef6bb28029328f84cd337d057853ddc4a3b
+	976170416a969c8e3a2cca3069a3c592e9e80ba81707ae75393bed3404b3f8f3
+

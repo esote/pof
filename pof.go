@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -13,23 +14,25 @@ import (
 )
 
 func main() {
-	// date
+	// Date in UTC.
 	fmt.Printf("Date: %s\n\n",
 		time.Now().UTC().Format("2006-01-02 15:04 MST"))
 
-	// news feeds
-	news()
+	sources := [...]func() error{
+		news,
+		nist,
+		btc,
+		monero,
+	}
 
-	// NIST randomness beacons
-	nist()
-
-	// BTC block hash
-	btc()
-
-	// Monero block hash
-	monero()
+	for _, source := range sources {
+		if err := source(); err != nil {
+			log.Fatal(err)
+		}
+	}
 }
 
+// Structure of an RSS feed, exposing only the fields useful to print news().
 type Rss struct {
 	XMLName xml.Name `xml:"rss"`
 	Channel struct {
@@ -40,10 +43,11 @@ type Rss struct {
 	} `xml:"channel"`
 }
 
-func news() {
-	var re = regexp.MustCompile(`[^[:ascii:]]+`)
+// International news feeds.
+func news() error {
+	re := regexp.MustCompile(`[^[:ascii:]]+`)
 
-	urls := []string{
+	urls := [...]string{
 		"https://www.spiegel.de/international/index.rss",
 		"https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
 		"https://feeds.bbci.co.uk/news/world/rss.xml",
@@ -57,11 +61,11 @@ func news() {
 		rss, err := parseRss(url)
 
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
 
 		if len(rss.Channel.Items) < count {
-			log.Fatalf("couldn't find %d items", count)
+			return fmt.Errorf("couldn't find %d items", count)
 		}
 
 		fmt.Printf("Src: %s (%s)\n ---\n", re.ReplaceAllString(rss.Channel.Title, " "), url)
@@ -72,51 +76,33 @@ func news() {
 
 		fmt.Println()
 	}
+
+	return nil
 }
 
+// GET and unmarshal specified RSS URL.
 func parseRss(url string) (*Rss, error) {
-	resp, err := http.Get(url)
+	data, err := getRead(url)
 
 	if err != nil {
-		return nil, err
-	}
-
-	rssxml, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		return nil, err
-	}
-
-	if err := resp.Body.Close(); err != nil {
 		return nil, err
 	}
 
 	var rss Rss
 
-	if err := xml.Unmarshal(rssxml, &rss); err != nil {
-		return nil, err
-	}
+	err = xml.Unmarshal(data, &rss)
 
-	return &rss, nil
+	return &rss, err
 }
 
-func nist() {
-	v2URL := "https://beacon.nist.gov/beacon/2.0/pulse/last"
+// NIST randomness beacon v2.
+func nist() error {
+	const v2url = "https://beacon.nist.gov/beacon/2.0/pulse/last"
 
-	resp, err := http.Get(v2URL)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	v2JSON, err := ioutil.ReadAll(resp.Body)
+	data, err := getRead(v2url)
 
 	if err != nil {
-		log.Fatal(err)
-	}
-
-	if err := resp.Body.Close(); err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	var v2 struct {
@@ -125,142 +111,127 @@ func nist() {
 		}
 	}
 
-	if err := json.Unmarshal(v2JSON, &v2); err != nil {
-		log.Fatal(err)
+	if err := json.Unmarshal(data, &v2); err != nil {
+		return err
 	}
 
-	fmt.Printf("Src: NIST Beacon v2 (%s)\n ---\n", v2URL)
+	fmt.Printf("Src: NIST Beacon v2 (%s)\n ---\n", v2url)
 	fmt.Printf("%s\n\n", v2.Pulse.OutputValue)
+
+	return nil
 
 }
 
-func btc() {
-	btcHeightURL := "https://blockchain.info/q/getblockcount"
-	btcBlockURL := "https://blockchain.info/block-height/%d?format=json"
+// BTC block hash.
+func btc() error {
+	const (
+		heightUrl = "https://blockchain.info/q/getblockcount"
+		blockUrl  = "https://blockchain.info/block-height/%d?format=json"
+		depth     = 10
+	)
 
-	resp, err := http.Get(btcHeightURL)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	btcHeight, err := ioutil.ReadAll(resp.Body)
+	data, err := getRead(heightUrl)
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	if err := resp.Body.Close(); err != nil {
-		log.Fatal(err)
-	}
-
-	height, err := strconv.ParseInt(string(btcHeight), 10, 64)
+	height, err := strconv.ParseInt(string(data), 10, 64)
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	const depth = 10
-
-	resp, err = http.Get(fmt.Sprintf(btcBlockURL, height-depth))
+	data, err = getRead(fmt.Sprintf(blockUrl, height-depth))
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	btcBlockJSON, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if err := resp.Body.Close(); err != nil {
-		log.Fatal(err)
-	}
-
-	var btcBlock struct {
+	var block struct {
 		Blocks []struct {
 			Hash string
 		}
 	}
 
-	if err := json.Unmarshal(btcBlockJSON, &btcBlock); err != nil {
-		log.Fatal(err)
+	if err := json.Unmarshal(data, &block); err != nil {
+		return err
 	}
 
-	if len(btcBlock.Blocks) == 0 {
-		log.Fatal("no blocks found")
+	if len(block.Blocks) == 0 {
+		return errors.New("no blocks found")
 	}
 
-	fmt.Printf("Src: Blockchain.Info [block depth %d] (%s)\n ---\n",
-		depth, fmt.Sprintf(btcBlockURL, height-depth))
+	fmt.Printf("Src: Blockchain.Info [block depth %d] (%s)\n ---\n", depth,
+		fmt.Sprintf(blockUrl, height-depth))
+	fmt.Printf("%s\n\n", block.Blocks[0].Hash)
 
-	fmt.Printf("%s\n\n", btcBlock.Blocks[0].Hash)
+	return nil
 }
 
-func monero() {
-	monStatURL := "https://moneroblocks.info/api/get_stats"
-	monURL := "https://moneroblocks.info/api/get_block_header/%d"
+// Monero block hash.
+func monero() error {
+	const (
+		statsUrl = "https://moneroblocks.info/api/get_stats"
+		blockUrl = "https://moneroblocks.info/api/get_block_header/%d"
+		depth    = 10
+	)
 
-	resp, err := http.Get(monStatURL)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	monJSON, err := ioutil.ReadAll(resp.Body)
+	data, err := getRead(statsUrl)
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	if err := resp.Body.Close(); err != nil {
-		log.Fatal(err)
-	}
-
-	var monStats struct {
+	var stats struct {
 		Height int64
 	}
 
-	if err := json.Unmarshal(monJSON, &monStats); err != nil {
-		log.Fatal(err)
+	if err := json.Unmarshal(data, &stats); err != nil {
+		return err
 	}
 
-	depth := int64(10)
-
-	if monStats.Height < depth {
-		log.Fatalf("monStats.Height < %d", depth)
+	if stats.Height < depth {
+		return fmt.Errorf("stats.Height < %d", depth)
 	}
 
-	resp, err = http.Get(fmt.Sprintf(monURL, monStats.Height-depth))
+	data, err = getRead(fmt.Sprintf(blockUrl, stats.Height-depth))
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	monJSON, err = ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if err := resp.Body.Close(); err != nil {
-		log.Fatal(err)
-	}
-
-	var monBlockHdr struct {
+	var block struct {
 		BlockHeader struct {
 			Hash string
 		} `json:"block_header"`
 	}
 
-	if err := json.Unmarshal(monJSON, &monBlockHdr); err != nil {
-		log.Fatal(err)
+	if err := json.Unmarshal(data, &block); err != nil {
+		return err
 	}
 
 	fmt.Printf("Src: Moneroblocks.Info [block depth %d] (%s)\n ---\n",
-		depth,
-		fmt.Sprintf(monURL, monStats.Height-depth))
-	fmt.Printf("%s\n\n", monBlockHdr.BlockHeader.Hash)
+		depth, fmt.Sprintf(blockUrl, stats.Height-depth))
+	fmt.Printf("%s\n\n", block.BlockHeader.Hash)
 
+	return nil
+}
+
+// Make GET request and read body, reducing duplicate ioutil.ReadAll and error
+// checking code.
+func getRead(url string) ([]byte, error) {
+	resp, err := http.Get(url)
+
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return data, resp.Body.Close()
 }
