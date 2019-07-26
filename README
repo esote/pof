@@ -1,7 +1,6 @@
 Proof of Freshness. Run with:
 
-	$ go get github.com/esote/pof
-	$ cd $GOPATH/src/github.com/esote/pof && go run pof.go
+	$ go get github.com/esote/pof && pof
 
 Collate values from multiple sources. Used to prove something cannot have been
 prepared ahead of the date specified within a day or so.
