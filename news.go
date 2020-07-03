@@ -29,10 +29,6 @@ func news() error {
 			"https://feeds.bbci.co.uk/news/world/rss.xml",
 		},
 		{
-			"Reuters world news",
-			"http://feeds.reuters.com/reuters/worldnews",
-		},
-		{
 			"The Economist latest updates",
 			"https://www.economist.com/latest/rss.xml",
 		},
