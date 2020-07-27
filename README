@@ -14,7 +14,6 @@ Current sources:
 		- Der Spiegel international
 		- New York Times world news
 		- BBC world news
-		- Reuters world news
 		- The Economist latest updates
 	- NIST beacon v2
 
@@ -22,70 +21,62 @@ Inspired by the proof of freshness used in Qubes OS's canaries.
 
 Example output:
 
-	Date: 2019-07-17 23:32 UTC
+	Date: 2020-07-27 02:57 UTC
 
 	Src: arXiv (https://export.arxiv.org/api/query?search_query=all&sortBy=submittedDate&sortOrder=descending&max_results=10)
 	 ---
-	On Higher Dimensional Generalized Kuramoto Oscillator Systems (Max Lipton, et al., 2019-07-16T17:19:55Z)
-	Higher genus relative Gromov--Witten theory and DR-cycles (Honglu Fan, et al., 2019-07-16T17:03:16Z)
-	Measuring I2P Censorship at a Global Scale (Nguyen Phong Hoang, et al., 2019-07-16T16:57:22Z)
-	On the smallest singular value of multivariate Vandermonde matrices with cluster... (Stefan Kunis, et al., 2019-07-16T16:55:13Z)
-	Primarily Undergraduate Institutions and the Astronomy Community (Joseph Ribaudo, et al., 2019-07-16T16:53:41Z)
-	Measurement of the jet mass in high transverse momentum $Z(\rightarrow b\overlin... (ATLAS Collaboration, 2019-07-16T16:03:43Z)
-	On The Termination of a Flooding Process (Walter Hussak, et al., 2019-07-16T15:45:12Z)
-	Equilibrium Microcanonical Annealing for First-Order Phase Transitions (Nathan Rose, et al., 2019-07-16T15:25:52Z)
-	Minimisation of Event Structures (Paolo Baldan, et al., 2019-07-16T14:48:54Z)
-	Serre's Property (FA) for automorphism groups of free products (Naomi Andrew, 2019-07-16T14:14:11Z)
+	Time-travelling billiard ball clocks: a quantum model (Lachlan Bishop, et al., 2020-07-24T17:45:35Z)
+	The Relativistic Jet Dichotomy and the End of the Blazar Sequence (Mary Keenan, et al., 2020-07-24T17:27:28Z)
+	McKean-Vlasov SDEs in nonlinear filtering (Sahani Pathiraja, et al., 2020-07-24T17:22:34Z)
+	Obstructions to matricial stability of discrete groups and almost flat K-theory (Marius Dadarlat, 2020-07-24T17:12:16Z)
+	Beating Greedy For Approximating Reserve Prices in Multi-Unit VCG Auctions (Mahsa Derakhshan, et al., 2020-07-24T17:08:42Z)
+	Linear Symmetries of the Unsquared Measurement Variety (Ioannis Gkioulekas, et al., 2020-07-24T16:59:40Z)
+	Magnus Nernst and thermal Hall effect (Debottam Mandal, et al., 2020-07-24T16:55:00Z)
+	All-optical density downramp injection in electron-driven plasma wakefield accel... (D. Ullmann, et al., 2020-07-24T16:34:57Z)
+	Corpse Reviver: Sound and Efficient Gradual Typing via Contract Verification (Cameron Moy, et al., 2020-07-24T16:30:42Z)
+	Bayesian Combinatorial Multi-Study Factor Analysis (Isabella N. Grabski, et al., 2020-07-24T16:17:47Z)
 
-	Src: Blockchain.Info [depth 10] (https://blockchain.info/block-height/585864?format=json)
+	Src: Blockchain.Info [depth 10] (https://blockchain.info/block-height/640964?format=json)
 	 ---
-	0000000000000000001d7805ccdfcd4f91d491da214beedc9a555c5b134ec3d9
+	0000000000000000000ea75860ec92c515a71584ac6f279e4a4ce995625e91c2
 
-	Src: Moneroblocks.Info [depth 10] (https://moneroblocks.info/api/get_block_header/1880770)
+	Src: Moneroblocks.Info [depth 10] (https://moneroblocks.info/api/get_block_header/2151095)
 	 ---
-	f003b6467d8379c8d70038b6798bf694fad0fcc813e1aa17ab34f33436ac9d22
+	e9c7c3f3a8987dc4a386f335c3ed61f8aaf177b06d3e827affd214c7fc6b45dd
 
 	Src: Der Spiegel international (https://www.spiegel.de/international/index.rss)
 	 ---
-	The New European Commission President: Von Der Leyen's Election Is a Big Moment for Europe
-	'Euro Orphans': The Romanian Children Growing up Without Their Parents
-	Far-Right AfD: Germany's Populist Party Embraces Its Extremist Wing
-	A Question of Trust: Ursula Von Der Leyen Recruits Team to Win Over Brussels
-	Feeding People With Science: Plant Researchers Brace for Population Explosion
+	Trump s Handling of the Coronavirus Could Cost Him Presidency
+	How Syrians Are Reshaping German Society
+	Cheap and Expendible: The Systematic Exploitation of Harvest Workers in Europe
+	Muslim Calls to Prayers Get a Mixed Reception in Germany
+	VW, BWM, Daimler: The Race to Beat Tesla at Its Own Game
 
 	Src: New York Times world news (https://rss.nytimes.com/services/xml/rss/nyt/World.xml)
 	 ---
-	Ebola Outbreak in Congo Is Declared a Global Health Emergency
-	A Prosperous China Says  Men Preferred,  and Women Lose
-	Iran Says It Aided Oil Tanker, Amid Reports of Missing U.A.E. Ship
-	As Iran vs. West Tensions Rise, So Does Uncertainty Over Prisoners
-	What Kind of Peace Talks Are These : On the Front Lines of a 17-Year War
+	Officials Push U.S.-China Relations Toward Point of No Return
+	As the World Gets Tougher on China, Japan Tries to Thread a Needle
+	Protests Swell in Russia s Far East in a Stark New Challenge to Putin
+	For French-Algerian Families, Virus Disrupts Cherished Summer Ritual
+	Brazil s Bolsonaro, Leading Virus Skeptic, Says He s No Longer Infected
 
 	Src: BBC world news (https://feeds.bbci.co.uk/news/world/rss.xml)
 	 ---
-	El Chapo trial: Mexican drug lord Joaqu n Guzm n gets life in prison
-	DR Congo Ebola outbreak declared global health emergency
-	Opioid crisis: US drug overdose deaths drop by 5.1%
-	Kevin Spacey: Massachusetts prosecutors drop sex assault case
-	Dolphin megapod spotted off California coast swimming alongside boat
-
-	Src: Reuters world news (http://feeds.reuters.com/reuters/worldnews)
-	 ---
-	U.S. removing Turkey from F-35 program after its Russian missile defense purchase
-	Croatia PM reshuffles cabinet, proposes six new ministers
-	UK's Johnson declines to comment on plan to facilitate a no-deal Brexit
-	UK ministers could resign in battle over suspending parliament: BBC reporter
-	Criticizing populism, Britain's May has Brexit advice for successor
+	US diplomats to leave consulate in Chengdu in tit-for-tat closures
+	Coronavirus: Spain says outbreaks under control after UK orders quarantine
+	Olivia de Havilland, Golden Age of Hollywood star, dies at 104
+	The gravedigger s truth: Hidden coronavirus deaths
+	John Lewis: US civil rights icon's body crosses Selma bridge a final time
 
 	Src: The Economist latest updates (https://www.economist.com/latest/rss.xml)
 	 ---
-	The next giant leap for mankind
-	Can Rory McIlroy win on his home turf?
-	Donald Trump s border wall reaches the Supreme Court
-	Unreliable evidence a forensic look at identification
-	The industry and poetry of David Smith
+	Donald Trump cancels his Florida celebration
+	The world s leading brands jump on the direct-selling bandwagon
+	The Greece of dreams and nightmares
+	Checks and Balance our weekly podcast on American politics
+	Is 2020 turning into a  law and order  election?
 
 	Src: NIST beacon v2 (https://beacon.nist.gov/beacon/2.0/pulse/last)
 	 ---
-	7DADB246FF3F72466A83D24920EACFDEE2D0F035A226C664DD614323A0B7F8153A0FC3130128D40A2E270014BFB8FCF676296B39679C690B719C314C1B31A23F
+	C12C220AEE18C9ED3991EB5D513BEBC5CEF2C62BD22ADCA8737BEF6B5E195BA87D17CC3DC39D4C38B3D04EF477687E50F82DA8CB11A84443AFA77E940B10364B
 
